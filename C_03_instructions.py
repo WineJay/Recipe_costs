@@ -34,19 +34,27 @@ def instructions():
     """Instructions for using Recipe Cost"""
 
     print('''
-    
-For each recipe enter...
-- Ingredient name
-- The amount
-- How much did you buy?
-- Price for one
 
-The program will first record the price you spent on the ingredient then the total spent then at last ingredient per serving.
+    For each recipe enter...
+    - Ingredient name
+    - The amount
+    - The units
+    - How much did you buy?
+    - The unit brought
+    - Price you paid
 
-Once you have entered the exit code ('xxx'), the program will display the ingredient
-information and the total cost.
+    After entering the ingredient and amount, you may enter any units for the first one. But the last one, you need to put 
+    either the same units or use units such as kilo or kg after using grams or g. Or, if you entered mL first, make sure the 
+    last one is also mL or L. If you put larger unit first and then an unit which is small, the programme will have an error
+    and won't calculate the right price just like any other calculator.  
 
-    ''')
+    The program will first record the price you spent on the ingredient then the total spent then at last ingredient per 
+    serving.
+
+    Once you have entered the exit code ('xxx'), the program will display the ingredient
+    information and the total cost.
+
+        ''')
 
 
 # Main Routine goes here
