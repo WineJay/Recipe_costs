@@ -1,7 +1,6 @@
 import pandas
-from tabulate import tabulate
 
-# import math
+from tabulate import tabulate
 
 
 # Functions go here
@@ -214,7 +213,9 @@ per_serving = total_using / serving_size
 print()
 make_statement(f"Let's Calculate the totals!", "-")
 
-print(recipe_cost_string)
+print(tabulate(recipe_cost_frame[['Ingredient', 'Used', 'Units', 'Brought', '.Units.', 'Price', 'Worth']],
+               headers='keys',
+               tablefmt="fancy_grid", showindex=False))
 print()
 
 print(f"You spent: {total_paid}")
