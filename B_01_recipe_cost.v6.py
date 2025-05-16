@@ -1,3 +1,5 @@
+from typing import Any
+
 import pandas
 
 from tabulate import tabulate
@@ -114,7 +116,7 @@ def string_check(question, valid_answers=('yes', 'no'), num_letters=1):
         print(f"Please choose an option from {valid_answers}")
 
 
-def unit_check(question, valid_answers=('kg', 'kilo', 'g', 'grams', 'mL', 'L', 'ml', '')):
+def unit_check(question, valid_answers= ('kg', 'kilo', 'g', 'grams', 'mL', 'L', 'ml', '')) -> str | Any:
     while True:
 
         response = input(question).lower()
@@ -178,6 +180,8 @@ while True:
 
     # find how much per serving for each ingredient
     each_ingredient_per_dollar = (price / brought)
+    if units_brought == units_used:
+        each_ingredient_per_dollar = ((price / brought) *1000)
 
     if units_brought == "kg":
         each_ingredient_per_dollar = (price / (brought * 1000))
