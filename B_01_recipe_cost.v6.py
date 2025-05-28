@@ -116,7 +116,7 @@ def string_check(question, valid_answers=('yes', 'no'), num_letters=1):
         print(f"Please choose an option from {valid_answers}")
 
 
-def unit_check(question, valid_answers= ('kg', 'kilo', 'g', 'grams', 'mL', 'L', 'ml', '')) -> str | Any:
+def unit_check(question, valid_answers= ('kg', 'kilo', 'g', 'grams', 'mL', 'l', 'ml', '', 'L')) -> str | Any:
     """
 
     :rtype: str | Any
@@ -142,7 +142,7 @@ all_buy = []
 all_worth = []
 
 recipe_cost_dict = {
-    "Ingredient ($)": all_ingredient,
+    "Ingredient": all_ingredient,
     "Used": all_used,
     "Units": all_used_unit,
     "Brought": all_brought,
@@ -177,14 +177,19 @@ while True:
     units_used = unit_check(f"What is your units for this ingredient: ")
 
     brought = num_check(f"How much did you buy : ")
+    if brought < amount:
+        print()
+        print(f"you don't have enough!")
+        print()
+        print(f"Please try again!")
+        break
 
     units_brought = unit_check(f"What is your units for this: ")
 
-    price = num_check(f"How much did you pay?: ")
+    price = num_check(f"How much did you pay?: $ ")
 
     # find how much per serving for each ingredient
     each_ingredient_per_dollar = (price / brought)
-
 
     if units_brought == "kg":
         each_ingredient_per_dollar = (price / (brought * 1000))
@@ -195,10 +200,13 @@ while True:
     if units_brought == "L":
         each_ingredient_per_dollar = (price / (brought * 1000))
 
+    if units_brought == "l":
+        each_ingredient_per_dollar = (price / (brought * 1000))
+
     if units_brought == units_used:
         each_ingredient_per_dollar = (price / brought)
 
-    print(f"You have got ingredient worth of ${each_ingredient_per_dollar * amount}")
+    print(f"You have got ingredient worth of ${(each_ingredient_per_dollar * amount):.2f}")
     print()
 
     # appends
@@ -222,12 +230,12 @@ per_serving = total_using / serving_size
 print()
 make_statement(f"Let's Calculate the totals!", "-")
 
-print(tabulate(recipe_cost_frame[['Ingredient ($)', 'Used', 'Units', 'Brought', '.Units.', 'Price ($)', 'Worth ($)']],
+print(tabulate(recipe_cost_frame[['Ingredient', 'Used', 'Units', 'Brought', '.Units.', 'Price ($)', 'Worth ($)']],
                headers='keys',
                tablefmt="fancy_grid", showindex=False))
 print()
 
-print(f"You spent: {total_paid:.2f}")
+print(f"Total to shop for these ingredients: ${total_paid:.2f}")
 print(f"You are using ingredient worth a total of: ${total_using:.2f}")
 print(f"Per serving it would cost you: ${per_serving:.2f}")
 
