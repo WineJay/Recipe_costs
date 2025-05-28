@@ -177,12 +177,6 @@ while True:
     units_used = unit_check(f"What is your units for this ingredient: ")
 
     brought = num_check(f"How much did you buy : ")
-    if brought < amount:
-        print()
-        print(f"you don't have enough!")
-        print()
-        print(f"Please try again!")
-        break
 
     units_brought = unit_check(f"What is your units for this: ")
 
