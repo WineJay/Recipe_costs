@@ -39,22 +39,6 @@ def num_check(question, num_type="float"):
         except ValueError:
             print(error)
 
-
-def int_check(question):
-    """checks that the user enter an integer. """
-
-    error = "Oops - please enter an integer. "
-
-    while True:
-        try:
-            # Return the response if it's an integer
-            response = int(input(question))
-            return response
-
-        except ValueError:
-            print(error)
-
-
 def instructions():
     make_statement("Instructions", "ℹ️")
     """Instructions for using Recipe Cost Calculator"""
@@ -73,6 +57,8 @@ def instructions():
     you need to put either the same units or use units such as kilo or kg after using grams or g. Or, if you entered 
     mL first, make sure the last one is also mL or L. If you put larger unit first and then an unit which is small, 
     the programme will have an error and won't calculate the right price just like any other calculator.
+    
+    The units that the program will accept are kg, kilo, g, grams, mL, ml, l, L.
 
     The program will first record the price you spent on the ingredient then the total spent then at last ingredient per 
     serving.
@@ -117,10 +103,9 @@ def string_check(question, valid_answers=('yes', 'no'), num_letters=1):
 
 
 def unit_check(question, valid_answers= ('kg', 'kilo', 'g', 'grams', 'mL', 'l', 'ml', '', 'L')) -> str | Any:
-    """
-
-    :rtype: str | Any
-    """
+    """ checks the units the user has entered
+    this also helps the calculator to do calculation such as Grams to kilograms.
+        """
     while True:
 
         response = input(question).lower()
@@ -184,7 +169,10 @@ while True:
 
     # find how much per serving for each ingredient
     each_ingredient_per_dollar = (price / brought)
-    
+
+    if not units_used 'kg' == units_brought 'g':
+        each_ingredient_per_dollar = ((amount * 1000) / brought) / price
+
     if units_brought == "kg":
         each_ingredient_per_dollar = (price / (brought * 1000))
 
