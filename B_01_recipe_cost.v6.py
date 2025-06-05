@@ -184,7 +184,7 @@ while True:
 
     # find how much per serving for each ingredient
     each_ingredient_per_dollar = (price / brought)
-
+    
     if units_brought == "kg":
         each_ingredient_per_dollar = (price / (brought * 1000))
 
