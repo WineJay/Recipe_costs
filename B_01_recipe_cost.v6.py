@@ -117,6 +117,10 @@ def unit_check(question, valid_answers= ('kg', 'kilo', 'g', 'grams', 'mL', 'l', 
                 return entry
 
 
+def currency(x):
+    """formats number as currency ($#,##)"""
+    return "${:.2f}".format(x)
+
 # recipe cost dictionary
 all_ingredient = []
 all_used = []
@@ -132,8 +136,8 @@ recipe_cost_dict = {
     "Units": all_used_unit,
     "Brought": all_brought,
     ".Units.": all_brought_unit,
-    "Price ($)": all_buy,
-    "Worth ($)": all_worth
+    "Price": all_buy,
+    "Worth": all_worth
 }
 
 # main routine Goes here
@@ -170,8 +174,17 @@ while True:
     # find how much per serving for each ingredient
     each_ingredient_per_dollar = (price / brought)
 
-    if not units_used 'kg' == units_brought 'g':
-        each_ingredient_per_dollar = ((amount * 1000) / brought) / price
+    if  units_used == "kg":
+        each_ingredient_per_dollar = ((price / brought) * 1000)
+
+    if  units_used == "kilo":
+        each_ingredient_per_dollar = ((price / brought) * 1000)
+
+    if  units_used == "l":
+        each_ingredient_per_dollar = ((price / brought) * 1000)
+
+    if  units_used == "L":
+        each_ingredient_per_dollar = ((price / brought) * 1000)
 
     if units_brought == "kg":
         each_ingredient_per_dollar = (price / (brought * 1000))
@@ -191,7 +204,7 @@ while True:
     print(f"You have got ingredient worth of ${(each_ingredient_per_dollar * amount):.2f}")
     print()
 
-    # appends
+    # appends to add items along with
     all_ingredient.append(ingredient)
     all_used.append(amount)
     all_used_unit.append(units_used)
@@ -204,19 +217,26 @@ recipe_cost_frame = pandas.DataFrame(recipe_cost_dict)
 # calculate total spent and worth
 recipe_cost_string = (recipe_cost_frame.to_string(index=False))
 
-total_paid = recipe_cost_frame['Price ($)'].sum()
-total_using = recipe_cost_frame['Worth ($)'].sum()
+total_paid = recipe_cost_frame['Price'].sum()
+total_using = recipe_cost_frame['Worth'].sum()
 per_serving = total_using / serving_size
+
+# apply currency formatting to currency columns.
+add_dollars = ['Price', 'Worth']
+for var_item in add_dollars:
+    recipe_cost_frame[var_item] = recipe_cost_frame[var_item].apply(currency)
+
 
 # print area
 print()
 make_statement(f"Let's Calculate the totals!", "-")
 
-print(tabulate(recipe_cost_frame[['Ingredient', 'Used', 'Units', 'Brought', '.Units.', 'Price ($)', 'Worth ($)']],
+# printing with tabulate for better looks
+print(tabulate(recipe_cost_frame[['Ingredient', 'Used', 'Units', 'Brought', '.Units.', 'Price', 'Worth']],
                headers='keys',
                tablefmt="fancy_grid", showindex=False))
 print()
-
+# totals of ingredient cost, worth, and per serving
 print(f"Total to shop for these ingredients: ${total_paid:.2f}")
 print(f"You are using ingredient worth a total of: ${total_using:.2f}")
 print(f"Per serving it would cost you: ${per_serving:.2f}")
