@@ -53,10 +53,10 @@ def instructions():
     - The unit brought
     - Price you paid
 
-    After entering the ingredient and amount, you may enter any units for the first one. But the last one, 
-    you need to put either the same units or use units such as kilo or kg after using grams or g. Or, if you entered 
-    mL first, make sure the last one is also mL or L. If you put larger unit first and then an unit which is small, 
-    the programme will have an error and won't calculate the right price just like any other calculator.
+    After entering the amount and the units of that amount you are going to use. You can use either the same units 
+    or the units which smaller or larger. An good example would be using kilo but brought grams. Or using kilogram and 
+    brought grams. However you use it make sure to add the price you paid for brought. This will calculate the correct 
+    amount. The program will accept <blank> for units too as some ingredients may not have any.
     
     The units that the program will accept are kg, kilo, g, grams, mL, ml, l, L.
 
