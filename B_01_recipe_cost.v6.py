@@ -39,6 +39,7 @@ def num_check(question, num_type="float"):
         except ValueError:
             print(error)
 
+
 def instructions():
     make_statement("Instructions", "ℹ️")
     """Instructions for using Recipe Cost Calculator"""
@@ -57,7 +58,7 @@ def instructions():
     or the units which smaller or larger. An good example would be using kilo but brought grams. Or using kilogram and 
     brought grams. However you use it make sure to add the price you paid for brought. This will calculate the correct 
     amount. The program will accept <blank> for units too as some ingredients may not have any.
-    
+
     The units that the program will accept are kg, kilo, g, grams, mL, ml, l, L.
 
     The program will first record the price you spent on the ingredient then the total spent then at last ingredient per 
@@ -102,7 +103,7 @@ def string_check(question, valid_answers=('yes', 'no'), num_letters=1):
         print(f"Please choose an option from {valid_answers}")
 
 
-def unit_check(question, valid_answers= ('kg', 'kilo', 'g', 'grams', 'mL', 'l', 'ml', '', 'L')) -> str | Any:
+def unit_check(question, valid_answers=('kg', 'kilo', 'g', 'grams', 'mL', 'l', 'ml', '', 'L')) -> str | Any:
     """ checks the units the user has entered
     this also helps the calculator to do calculation such as Grams to kilograms.
         """
@@ -120,6 +121,7 @@ def unit_check(question, valid_answers= ('kg', 'kilo', 'g', 'grams', 'mL', 'l', 
 def currency(x):
     """formats number as currency ($#,##)"""
     return "${:.2f}".format(x)
+
 
 # recipe cost dictionary
 all_ingredient = []
@@ -160,44 +162,46 @@ while True:
     if ingredient == "xxx":
         break
 
-        # using units
+    # getting recipe details
+
+    # the amount of ingredient being used
     amount = num_check(f"How much are you using: ")
-
+    # units of the ingredient being used
     units_used = unit_check(f"What is your units for this ingredient: ")
-
+    # amount of the ingredient has been brought
     brought = num_check(f"How much did you buy : ")
-
+    # units of the ingredient that has been brought
     units_brought = unit_check(f"What is your units for this: ")
-
+    # price of the ingredient that has been brought
     price = num_check(f"How much did you pay?: $ ")
 
     # find how much per serving for each ingredient
     each_ingredient_per_dollar = (price / brought)
-
-    if  units_used == "kg":
+    # if the amount of ingredient being used is in kg but not g or grams
+    if units_used == "kg":
         each_ingredient_per_dollar = ((price / brought) * 1000)
-
-    if  units_used == "kilo":
+    # if the amount of ingredient being used is in kilo but not g or grams
+    if units_used == "kilo":
         each_ingredient_per_dollar = ((price / brought) * 1000)
-
-    if  units_used == "l":
+    # if the amount of ingredient being used is in L but not ml
+    if units_used == "l":
         each_ingredient_per_dollar = ((price / brought) * 1000)
-
-    if  units_used == "L":
+    # if the amount of ingredient being used is L but not mL
+    if units_used == "L":
         each_ingredient_per_dollar = ((price / brought) * 1000)
-
+    # if the amount of ingredient brought was kg but using g or grams
     if units_brought == "kg":
         each_ingredient_per_dollar = (price / (brought * 1000))
-
+    # if the amount of ingredient brought was kilo but using g or grams
     if units_brought == "kilo":
         each_ingredient_per_dollar = (price / (brought * 1000))
-
+    # if the amount of ingredient brought was L but using mL
     if units_brought == "L":
         each_ingredient_per_dollar = (price / (brought * 1000))
-
+    # if the amount of ingredient brought was l but using mL
     if units_brought == "l":
         each_ingredient_per_dollar = (price / (brought * 1000))
-
+    # if the ingredient brought and being used are the same
     if units_brought == units_used:
         each_ingredient_per_dollar = (price / brought)
 
@@ -225,7 +229,6 @@ per_serving = total_using / serving_size
 add_dollars = ['Price', 'Worth']
 for var_item in add_dollars:
     recipe_cost_frame[var_item] = recipe_cost_frame[var_item].apply(currency)
-
 
 # print area
 print()
